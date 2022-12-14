@@ -1,5 +1,6 @@
-package com.example.producer;
+package com.example.serdes;
 
+import com.example.CarEvent;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.kafka.common.errors.SerializationException;
 import org.apache.kafka.common.header.Headers;
