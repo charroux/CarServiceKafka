@@ -1,6 +1,6 @@
 # CarServiceKafka
 
-# Installation
+## Installation
 
 Download Kafka 2.13.* from: https://kafka.apache.org/
 
@@ -8,14 +8,16 @@ tar -xzf kafka_2.13.*.tgz
 
 Change directory to kafka
 
-Start Zookeeper
+## Start Zookeeper
+
 ZooKeeper allows distributed processes to coordinate with each other through a shared hierarchical name space of data registers (we call these registers znodes), much like a file system. Unlike normal file systems ZooKeeper provides its clients with high throughput, low latency, highly available, strictly ordered access to the znodes. The performance aspects of ZooKeeper allow it to be used in large distributed systems. The reliability aspects prevent it from becoming the single point of failure in big systems. Its strict ordering allows sophisticated synchronization primitives to be implemented at the client.
 
 bin/zookeeper-server-start.sh config/zookeeper.properties
 
 Ctr-c to stop
 
-Start Kafka broker
+## Start Kafka broker
+
 bin/kafka-server-start.sh config/server.properties
 
 Ctr-c to stop
