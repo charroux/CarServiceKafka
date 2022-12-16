@@ -33,4 +33,12 @@ public class CarEvent {
     public void setState(State state) {
         this.state = state;
     }
+
+    @Override
+    public String toString() {
+        return "CarEvent{" +
+                "plateNumber='" + plateNumber + '\'' +
+                ", state=" + state +
+                '}';
+    }
 }

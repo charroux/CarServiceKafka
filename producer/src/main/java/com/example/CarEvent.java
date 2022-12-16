@@ -1,7 +1,6 @@
 package com.example;
 
 public class CarEvent {
-
     String plateNumber;
     public enum State {
         RENTED,
@@ -32,5 +31,13 @@ public class CarEvent {
 
     public void setState(State state) {
         this.state = state;
+    }
+
+    @Override
+    public String toString() {
+        return "CarEvent{" +
+                "plateNumber='" + plateNumber + '\'' +
+                ", state=" + state +
+                '}';
     }
 }

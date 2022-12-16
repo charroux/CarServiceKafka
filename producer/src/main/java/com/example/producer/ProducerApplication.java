@@ -1,8 +1,10 @@
 package com.example.producer;
 
 import com.example.CarEvent;
+import com.example.serdes.CarEventSerializer;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
+import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -30,7 +32,7 @@ public class ProducerApplication  implements CommandLineRunner {
 		props.put("linger.ms", 1);
 		props.put("buffer.memory", 33554432);
 		props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
-		props.put("value.serializer", "com.example.serdes.CarEventSerializer");
+		props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, CarEventSerializer.class);
 
 		Producer<String, CarEvent> producer = new KafkaProducer<String, CarEvent>(props);
 

@@ -2,6 +2,9 @@ package com.example.stream;
 
 import com.example.CarEvent;
 import com.example.serdes.CarEventDeserializer;
+import com.example.serdes.CarEventSerde;
+import com.example.serdes.CarEventSerializer;
+import org.apache.kafka.common.serialization.Serde;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.KafkaStreams;
 import org.apache.kafka.streams.StreamsBuilder;
@@ -26,11 +29,16 @@ public class StreamApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
+		/*Serde<CarEvent> carEventSerde = Serdes.serdeFrom(
+				new CarEventSerializer(),
+				new CarEventDeserializer());*/
+
 		Properties props = new Properties();
 		props.put(StreamsConfig.APPLICATION_ID_CONFIG, "streams-pipe");
 		props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
 		props.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass());
-		props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, new CarEventDeserializer().getClass());
+		//props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, CarEventSerde.class);
+		props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, CarEventSerde.class);
 
 		System.out.println(props);
 

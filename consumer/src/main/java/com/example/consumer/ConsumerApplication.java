@@ -44,7 +44,6 @@ public class ConsumerApplication implements CommandLineRunner {
 			for (ConsumerRecord<String, CarEvent> record : records) {
 				System.out.println("Key: " + record.key() + ", Value:" + record.value());
 				System.out.println("Partition:" + record.partition() + ",Offset:" + record.offset());
-
 			}
 		}
 	}
