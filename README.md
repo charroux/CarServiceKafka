@@ -30,4 +30,4 @@ bin/kafka-topics.sh --create --topic car-service --bootstrap-server localhost:90
 
 ## Create a topic for consuming messages
 
-bin/kafka-topics.sh --create --topic car-service-listener --bootstrap-server localhost:9092
+bin/kafka-topics.sh --create --topic car-service-listener --partitions 2 --bootstrap-server localhost:9092

@@ -22,7 +22,7 @@ public class ProducerApplication  implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		String topicName = "car-service";
+		String topicName = "car-service-listener";
 
 		Properties props = new Properties();
 		props.put("bootstrap.servers", "localhost:9092");
@@ -37,10 +37,20 @@ public class ProducerApplication  implements CommandLineRunner {
 		Producer<String, CarEvent> producer = new KafkaProducer<String, CarEvent>(props);
 
 		CarEvent carEvent = new CarEvent("11AA22", CarEvent.State.RENTED);
+		producer.send(new ProducerRecord<String, CarEvent>(topicName, 0, "Office Paris", carEvent));
+		System.out.println("CarEvent sent to Office Paris: " + carEvent);
 
-		producer.send(new ProducerRecord<String, CarEvent>(topicName, "11AA22", carEvent));
+		carEvent = new CarEvent("33BB44", CarEvent.State.RENTED);
+		producer.send(new ProducerRecord<String, CarEvent>(topicName, 1, "Office Nice", carEvent));
+		System.out.println("CarEvent sent to Office Nice: " + carEvent);
 
-		System.out.println("CarEvent sent");
+		carEvent = new CarEvent("55CC66", CarEvent.State.RENTED);
+		producer.send(new ProducerRecord<String, CarEvent>(topicName, 0, "Office Toulouse", carEvent));
+		System.out.println("CarEvent sent to Office Paris: " + carEvent);
+
+		carEvent = new CarEvent("77DD88", CarEvent.State.RENTED);
+		producer.send(new ProducerRecord<String, CarEvent>(topicName, 1, "Office Marseille", carEvent));
+		System.out.println("CarEvent sent to Office Nice: " + carEvent);
 
 		producer.close();
 	}
