@@ -1,7 +1,9 @@
 package com.example;
 
 public class CarEvent {
+
     String plateNumber;
+
     public enum State {
         RENTED,
         AVAILABLE

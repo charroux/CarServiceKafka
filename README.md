@@ -24,10 +24,21 @@ Ctr-c to stop
 
 If the broker hasn't been stoped properly stop it with: bin/kafka-server-stop.sh Then restart it.
 
-## Create a topic for producing messages
+## Create a topic for producing messages with 2 partitions
 
 bin/kafka-topics.sh --create --topic car-service --partitions 2 --bootstrap-server localhost:9092
 
-## Create a topic for consuming messages
+## Create a topic for consuming messages with 2 partitions
 
 bin/kafka-topics.sh --create --topic car-service-listener --partitions 2 --bootstrap-server localhost:9092
+
+## The producer https://github.com/charroux/CarServiceKafka/tree/main/producer
+
+### Event definion
+
+https://github.com/charroux/CarServiceKafka/blob/main/producer/src/main/java/com/example/CarEvent.java
+
+### Partitioner according to the office name
+
+
+
