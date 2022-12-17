@@ -34,11 +34,46 @@ bin/kafka-topics.sh --create --topic car-service-listener --partitions 2 --boots
 
 ## The producer https://github.com/charroux/CarServiceKafka/tree/main/producer
 
-### Event definion
+### Event definition
 
 https://github.com/charroux/CarServiceKafka/blob/main/producer/src/main/java/com/example/CarEvent.java
 
+### Event sedializer / deserialiser
+
+https://github.com/charroux/CarServiceKafka/tree/main/producer/src/main/java/com/example/serdes
+
 ### Partitioner according to the office name
+
+https://github.com/charroux/CarServiceKafka/blob/main/producer/src/main/java/com/example/partitioner/OfficePartitioner.java
+
+### Sending event
+
+https://github.com/charroux/CarServiceKafka/blob/main/producer/src/main/java/com/example/producer/ProducerApplication.java
+
+## Streaming events https://github.com/charroux/CarServiceKafka/tree/main/stream
+
+### Event serializer / deserializer
+
+https://github.com/charroux/CarServiceKafka/tree/main/stream/src/main/java/com/example/serdes
+
+### Partitioner according to the office name
+
+https://github.com/charroux/CarServiceKafka/blob/main/stream/src/main/java/com/example/partitioner/OfficePartitioner.java
+
+### Streaming 
+
+https://github.com/charroux/CarServiceKafka/blob/main/stream/src/main/java/com/example/stream/StreamApplication.java
+
+## Consumer: https://github.com/charroux/CarServiceKafka/tree/main/consumer
+
+### Event serializer / deserialiser
+
+https://github.com/charroux/CarServiceKafka/tree/main/consumer/src/main/java/com/example/serdes
+
+### Consumer
+
+https://github.com/charroux/CarServiceKafka/blob/main/consumer/src/main/java/com/example/consumer/ConsumerApplication.java
+
 
 
 
