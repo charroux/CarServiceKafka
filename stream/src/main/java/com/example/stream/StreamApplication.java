@@ -1,9 +1,12 @@
 package com.example.stream;
 
 import com.example.CarEvent;
+import com.example.partitioner.OfficePartitioner;
 import com.example.serdes.CarEventDeserializer;
 import com.example.serdes.CarEventSerde;
 import com.example.serdes.CarEventSerializer;
+import org.apache.kafka.clients.producer.Producer;
+import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.Serde;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.KafkaStreams;
@@ -12,6 +15,7 @@ import org.apache.kafka.streams.StreamsConfig;
 import org.apache.kafka.streams.Topology;
 import org.apache.kafka.streams.kstream.KStream;
 import org.apache.kafka.streams.kstream.Printed;
+import org.apache.kafka.streams.kstream.Produced;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -37,7 +41,7 @@ public class StreamApplication implements CommandLineRunner {
 		props.put(StreamsConfig.APPLICATION_ID_CONFIG, "streams-pipe");
 		props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
 		props.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass());
-		//props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, CarEventSerde.class);
+		//props.put(ProducerConfig.PARTITIONER_CLASS_CONFIG, OfficePartitioner.class);
 		props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, CarEventSerde.class);
 
 		System.out.println(props);
@@ -47,7 +51,7 @@ public class StreamApplication implements CommandLineRunner {
 		KStream<String, CarEvent> source = builder.stream("car-service");
 		source
 				.filter((key, value) -> value.getState() == CarEvent.State.RENTED)
-						.to("car-service-listener");
+						.to("car-service-listener", Produced.streamPartitioner(new OfficePartitioner()));
 
 		final Topology topology = builder.build();
 

@@ -1,6 +1,7 @@
 package com.example.producer;
 
 import com.example.CarEvent;
+import com.example.partitioner.OfficePartitioner;
 import com.example.serdes.CarEventSerializer;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
@@ -22,7 +23,7 @@ public class ProducerApplication  implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		String topicName = "car-service-listener";
+		String topicName = "car-service";
 
 		Properties props = new Properties();
 		props.put("bootstrap.servers", "localhost:9092");
@@ -32,25 +33,26 @@ public class ProducerApplication  implements CommandLineRunner {
 		props.put("linger.ms", 1);
 		props.put("buffer.memory", 33554432);
 		props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
+		props.put(ProducerConfig.PARTITIONER_CLASS_CONFIG, OfficePartitioner.class);
 		props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, CarEventSerializer.class);
 
 		Producer<String, CarEvent> producer = new KafkaProducer<String, CarEvent>(props);
 
 		CarEvent carEvent = new CarEvent("11AA22", CarEvent.State.RENTED);
-		producer.send(new ProducerRecord<String, CarEvent>(topicName, 0, "Office Paris", carEvent));
+		producer.send(new ProducerRecord<String, CarEvent>(topicName, "Office Paris", carEvent));
 		System.out.println("CarEvent sent to Office Paris: " + carEvent);
 
 		carEvent = new CarEvent("33BB44", CarEvent.State.RENTED);
-		producer.send(new ProducerRecord<String, CarEvent>(topicName, 1, "Office Nice", carEvent));
+		producer.send(new ProducerRecord<String, CarEvent>(topicName, "Office Nice", carEvent));
 		System.out.println("CarEvent sent to Office Nice: " + carEvent);
 
-		carEvent = new CarEvent("55CC66", CarEvent.State.RENTED);
-		producer.send(new ProducerRecord<String, CarEvent>(topicName, 0, "Office Toulouse", carEvent));
+		/*CarEvent carEvent = new CarEvent("11AA22", CarEvent.State.RENTED);
+		producer.send(new ProducerRecord<String, CarEvent>(topicName, 0, carEvent.getPlateNumber(), carEvent));
 		System.out.println("CarEvent sent to Office Paris: " + carEvent);
 
-		carEvent = new CarEvent("77DD88", CarEvent.State.RENTED);
-		producer.send(new ProducerRecord<String, CarEvent>(topicName, 1, "Office Marseille", carEvent));
-		System.out.println("CarEvent sent to Office Nice: " + carEvent);
+		carEvent = new CarEvent("33BB44", CarEvent.State.RENTED);
+		producer.send(new ProducerRecord<String, CarEvent>(topicName, 1, carEvent.getPlateNumber(), carEvent));
+		System.out.println("CarEvent sent to Office Nice: " + carEvent);*/
 
 		producer.close();
 	}

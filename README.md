@@ -26,7 +26,7 @@ If the broker hasn't been stoped properly stop it with: bin/kafka-server-stop.sh
 
 ## Create a topic for producing messages
 
-bin/kafka-topics.sh --create --topic car-service --bootstrap-server localhost:9092
+bin/kafka-topics.sh --create --topic car-service --partitions 2 --bootstrap-server localhost:9092
 
 ## Create a topic for consuming messages
 
