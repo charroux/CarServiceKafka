@@ -46,14 +46,6 @@ public class ProducerApplication  implements CommandLineRunner {
 		producer.send(new ProducerRecord<String, CarEvent>(topicName, "Office Nice", carEvent));
 		System.out.println("CarEvent sent to Office Nice: " + carEvent);
 
-		/*CarEvent carEvent = new CarEvent("11AA22", CarEvent.State.RENTED);
-		producer.send(new ProducerRecord<String, CarEvent>(topicName, 0, carEvent.getPlateNumber(), carEvent));
-		System.out.println("CarEvent sent to Office Paris: " + carEvent);
-
-		carEvent = new CarEvent("33BB44", CarEvent.State.RENTED);
-		producer.send(new ProducerRecord<String, CarEvent>(topicName, 1, carEvent.getPlateNumber(), carEvent));
-		System.out.println("CarEvent sent to Office Nice: " + carEvent);*/
-
 		producer.close();
 	}
 }

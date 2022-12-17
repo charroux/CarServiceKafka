@@ -33,15 +33,10 @@ public class StreamApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		/*Serde<CarEvent> carEventSerde = Serdes.serdeFrom(
-				new CarEventSerializer(),
-				new CarEventDeserializer());*/
-
 		Properties props = new Properties();
 		props.put(StreamsConfig.APPLICATION_ID_CONFIG, "streams-pipe");
 		props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
 		props.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass());
-		//props.put(ProducerConfig.PARTITIONER_CLASS_CONFIG, OfficePartitioner.class);
 		props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, CarEventSerde.class);
 
 		System.out.println(props);
